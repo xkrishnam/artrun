@@ -55,7 +55,7 @@
 				<!-- pagination -->
         <div class="widget user text-center">
 						<ul class="list-inline mt-20">
-							<li class="list-inline-item"><a 
+							<li class="list-inline-item"><a href=""
               class="btn btn-offer d-inline-block btn-primary ml-n1 my-1 px-lg-4 px-md-3"
 							v-on:click="checkout">
               Checkout</a></li>
@@ -117,8 +117,13 @@ const axios = require('axios');
           alert("please signup to place order");
           this.$router.push('/signup');
         }else if(this.$session.has('user')){
-          this.$router.push('/checkout');
-				}
+			if(this.$session.get('user').cart.paintings &&  this.$session.get('user').cart.paintings.length>0){
+				
+				this.$router.push('/checkout');
+			}	else{
+				alert("Cart is empty");
+			}
+		}
       }
     },
     computed: {

@@ -33,7 +33,10 @@
     },
     data () {
       return {
-
+          name:"",
+          email: "",
+          pass : "",
+          cpass: ""
       }
     },
     methods: {
@@ -66,6 +69,7 @@
                             if(this.$session.has('user')){
                             this.$store.commit('updateCartCount',this.$session.get('user'));
                             this.$store.commit('setLoginStatus', this.$session.get("user"));
+                            this.$router.push('/');
                             }
                             }
                         })

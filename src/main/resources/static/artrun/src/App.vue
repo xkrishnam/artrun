@@ -1,8 +1,12 @@
 <template>
   <div id="app">
-    <ArtHeader msg="Welcome to my Vue.js App" v-bind:quantity="this.$store.state.count" @updateCartQuantity="quant = $event"/>
+    <ArtHeader
+      msg="Welcome to my Vue.js App"
+      v-bind:quantity="this.$store.state.count"
+      @updateCartQuantity="quant = $event"
+    />
     <router-view></router-view>
-    <ArtFooter arcompany="artrun"/>
+    <ArtFooter arcompany="artrun" />
   </div>
 </template>
 
@@ -14,8 +18,8 @@ export default {
   name: "App",
   data() {
     return {
-      quant:0
-    }
+      quant: 0
+    };
   },
   components: {
     ArtHeader,

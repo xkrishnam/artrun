@@ -6,9 +6,12 @@
                 <div class="col-lg-5 col-md-8 align-item-center">
                     <div class="border border">
                         <h3 class="bg-gray p-4">Place Order</h3>
+                        Enter Address for delivery
                         <textarea v-model="address" form="usrform">Enter text here...</textarea>
                         <form v-on:submit="sub" action="#" method="post" id="placeorderform">
                             <fieldset class="p-4">
+                                <label for="cod">Cash on delivery</label>    
+                                <input type="checkbox" name="cod" checked=checked> 
                               <button type="submit" class="d-block py-3 px-4 bg-primary text-white border-0 rounded font-weight-bold">Register Now</button>
                             </fieldset>
                         </form>
@@ -56,6 +59,7 @@
                             if(this.$session.has('user')){
                             this.$store.commit('updateCartCount',this.$session.get('user'));
                             this.$store.commit('setLoginStatus', this.$session.get("user"));
+                            this.$router.push("/myorder");
                             }
                             }
                         })

@@ -1,7 +1,5 @@
 package org.artrun.web.domain;
 
-import java.math.BigDecimal;
-
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -10,10 +8,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Data;
 
-
 @Entity(name = "ar_painting")
 @Data
-public class Painting extends AbstractEntity{
+public class Painting extends AbstractEntity {
     private String Title;
 
     @ManyToOne
@@ -22,4 +19,3 @@ public class Painting extends AbstractEntity{
     private User artist;
     private Integer price;
 }
-

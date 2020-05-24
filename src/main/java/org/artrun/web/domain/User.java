@@ -18,27 +18,27 @@ import lombok.Data;
 
 @Entity(name = "ar_user")
 @Data
-public class User extends AbstractEntity{
+public class User extends AbstractEntity {
 
-private String uname;
+    private String uname;
 
-@Email
-private String email;
+    @Email
+    private String email;
 
-private String password;
+    private String password;
 
-@Enumerated(value = EnumType.STRING)
-private UserType userType;
+    @Enumerated(value = EnumType.STRING)
+    private UserType userType;
 
-@OneToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
-@JoinColumn(name = "cart_id")
-private Cart cart;
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "cart_id")
+    private Cart cart;
 
-@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "user" )
-private List<Order> orders;
+    @OneToMany(mappedBy = "user")
+    private List<Order> orders;
 
-@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "artist")
-@JsonIgnore
-private List<Painting> paintings;
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "artist")
+    @JsonIgnore
+    private List<Painting> paintings;
 
 }

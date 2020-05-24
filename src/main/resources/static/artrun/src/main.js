@@ -10,6 +10,7 @@ import Vuex from "vuex";
 import CartView from "./components/CartView";
 import PlaceOrder from "./components/PlaceOrder";
 import OrderView from "./components/OrderView";
+import OrderDetailView from "./components/OrderDetailView";
 
 Vue.use(Vuex);
 Vue.use(VueSession);
@@ -26,7 +27,8 @@ const router = new VueRouter({
     { path: "/art/:id", component: SingleItem },
     { path: "/cart", component: CartView },
     { path: "/checkout", component: PlaceOrder },
-    { path: "/vieworder", component: OrderView },
+    { path: "/myorders", component: OrderView },
+    { path: "/vieworder/:oid", component: OrderDetailView },
     { path: "*", redirect: "/" },
   ],
 });
@@ -41,7 +43,7 @@ const store = new Vuex.Store({
   mutations: {
     updateCartCount(state, user) {
       if (user) {
-        var quant = user.cart.paintings.length;
+        var quant = user.cart.paintings ? user.cart.paintings.length : 0;
         state.count = quant;
       }
     },
@@ -57,6 +59,7 @@ const store = new Vuex.Store({
         }
       } else {
         state.loggedin = false;
+        state.userLogged = false;
       }
     },
   },

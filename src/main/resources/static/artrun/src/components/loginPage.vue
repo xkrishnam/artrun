@@ -31,7 +31,8 @@
     },
     data () {
       return {
-
+          email:"",
+          pass:""
       }
     },
     methods: {

@@ -11,17 +11,17 @@ import lombok.Data;
 
 @Entity(name = "ar_order")
 @Data
-public class Order extends AbstractEntity{
+public class Order extends AbstractEntity {
 
     @OneToOne
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "cart_id")
     private Cart cart;
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     @JsonIgnore
     private User user;
-    
+
     private String address;
 
     private OrderStatus status;
