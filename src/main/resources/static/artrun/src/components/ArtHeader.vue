@@ -32,9 +32,6 @@
                   <router-link to="/myorders" class="nav-link login-button">My Orders</router-link>
                 </li>
                 <li class="nav-item" v-if="this.$store.state.userLogged">
-                  <router-link to="/login" class="nav-link login-button">My Profile</router-link>
-                </li>
-                <li class="nav-item" v-if="this.$store.state.userLogged">
                   <a @click="logout" href class="nav-link login-button">Logout</a>
                 </li>
                 <li class="nav-item" v-if="!this.$store.state.userLogged">
@@ -53,6 +50,11 @@
             </div>
           </nav>
         </div>
+      </div>
+      <div class="row" v-if="this.$store.state.userLogged">
+        <div
+          class="col-md-12 text-center"
+        >Welcome &nbsp; {{this.$session.get("user").uname}}&nbsp; {{'('+this.$session.get("user").email+')'}}</div>
       </div>
     </div>
   </section>

@@ -30,7 +30,7 @@ public class User extends AbstractEntity {
     @Enumerated(value = EnumType.STRING)
     private UserType userType;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "cart_id")
     private Cart cart;
 

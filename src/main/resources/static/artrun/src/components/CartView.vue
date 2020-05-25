@@ -23,7 +23,7 @@
 
 								<td class="product-thumb">
 									<img width="80px" height="auto" 
-                  :src="require('../assets/media/'+painting.id+'.jpg')" 
+                  :src="this.$g('base_url')+'/arimages/'+painting.id+'.jpg'" 
                   alt="image description">
                 </td>
 								<td class="product-details">
@@ -95,7 +95,7 @@ const axios = require('axios');
 					cid=this.$session.get('user').id;
 				}
         axios
-          .get('http://localhost:33445/remcart/'+cid+'/'+pid)
+          .get(this.$g('base_url')+'/remcart/'+cid+'/'+pid)
           .then(response => {
 						this.$session.set('user',response.data);
 						if(this.$session.has('user')){

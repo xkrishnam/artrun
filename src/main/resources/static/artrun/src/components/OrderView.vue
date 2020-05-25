@@ -93,7 +93,7 @@
               if(this.$session.has('user')){
                   uid=this.$session.get('user').id;
               }
-              axios.post('http://localhost:33445/cancelorder', 
+              axios.post(this.$g('base_url')+'/cancelorder', 
               {
                             uid: uid,
                             oid: oid

@@ -41,7 +41,7 @@
           if(this.email == "" || this.pass == ""){
             alert("Empty mandtory fields(*)");
           }else{
-              axios.post('http://localhost:33445/artlogin/', 
+              axios.post(this.$g('base_url')+'/artlogin/', 
               {
                             username: this.email,
                             password: this.pass

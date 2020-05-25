@@ -14,7 +14,7 @@
 							<tr>
 								<th>Image</th>
 								<th>Product Title</th>
-								<th class="text-center">Price</th>
+								<th>Price</th>
 								<th class="text-center">Action</th>
 							</tr>
 						</thead>
@@ -23,7 +23,7 @@
 
 								<td class="product-thumb">
 									<img width="80px" height="auto" 
-                                             :src="require('../assets/media/'+painting.id+'.jpg')" 
+                                             :src="getContentImageLink(painting.id)" 
                                              alt="image description">
                                 </td>
 								<td class="product-details">
@@ -84,7 +84,9 @@
       }
     },
     methods: {
-
+	getContentImageLink(id) {
+      return this.$g("img_base_url") + id + ".jpg";
+    }
     },
     computed: {
 

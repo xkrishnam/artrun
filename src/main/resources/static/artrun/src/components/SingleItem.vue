@@ -17,7 +17,7 @@
 					<!-- product slider -->
 					<div class="product-slider">
 							<img class="img-fluid w-100" 
-              :src="require('../assets/media/'+painting.id+'.jpg')" 
+              :src="this.$g('base_url')+'/arimages/'+painting.id+'.jpg'" 
               alt="product-img">
 						
 					</div>
@@ -57,7 +57,7 @@
     props: [],
     mounted () {
       axios
-		.get('http://localhost:33445/art/'+this.$route.params.id)
+		.get(this.$g('base_url')+'/art/'+this.$route.params.id)
 		.then(response => (this.painting = response.data))
     },
     data () {
@@ -99,7 +99,6 @@
 </script>
 
 <style scoped>
-  .single-item {
-
-  }
+.single-item {
+}
 </style>

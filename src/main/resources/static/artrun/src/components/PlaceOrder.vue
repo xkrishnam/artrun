@@ -43,7 +43,7 @@
               if(this.$session.has('user')){
                   uid=this.$session.get('user').id;
               }
-              axios.post('http://localhost:33445/placeorder', 
+              axios.post(this.$g('base_url')+'/placeorder', 
               {
                             uid: uid,
                             address: this.address

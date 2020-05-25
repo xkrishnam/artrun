@@ -11,6 +11,14 @@ import CartView from "./components/CartView";
 import PlaceOrder from "./components/PlaceOrder";
 import OrderView from "./components/OrderView";
 import OrderDetailView from "./components/OrderDetailView";
+import globals from "./ar-config.json";
+import _get from "lodash/get";
+
+Vue.prototype.$g = (key) => {
+  let val = _get(globals, key, "");
+  if (!val) console.warn(key, " is empty in $g");
+  return val || key;
+};
 
 Vue.use(Vuex);
 Vue.use(VueSession);
