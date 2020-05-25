@@ -26,7 +26,7 @@
               </ul>
               <ul class="navbar-nav ml-auto mt-10">
                 <li class="nav-item" v-if="this.$store.state.userLogged">
-                  <router-link to="/login" class="nav-link login-button">Upload Paintings</router-link>
+                  <router-link to="/uploadpainting" class="nav-link login-button">Upload Paintings</router-link>
                 </li>
                 <li class="nav-item" v-if="this.$store.state.userLogged">
                   <router-link to="/myorders" class="nav-link login-button">My Orders</router-link>

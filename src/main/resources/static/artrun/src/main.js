@@ -11,6 +11,7 @@ import CartView from "./components/CartView";
 import PlaceOrder from "./components/PlaceOrder";
 import OrderView from "./components/OrderView";
 import OrderDetailView from "./components/OrderDetailView";
+import UploadPainting from "./components/UploadPainting";
 import globals from "./ar-config.json";
 import _get from "lodash/get";
 
@@ -37,6 +38,7 @@ const router = new VueRouter({
     { path: "/checkout", component: PlaceOrder },
     { path: "/myorders", component: OrderView },
     { path: "/vieworder/:oid", component: OrderDetailView },
+    { path: "/uploadpainting", component: UploadPainting },
     { path: "*", redirect: "/" },
   ],
 });

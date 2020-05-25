@@ -11,7 +11,7 @@ import lombok.Data;
 @Entity(name = "ar_painting")
 @Data
 public class Painting extends AbstractEntity {
-    private String Title;
+    private String title;
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
