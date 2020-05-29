@@ -12,7 +12,7 @@
                             <fieldset class="p-4">
                                 <label for="cod">Cash on delivery</label>    
                                 <input type="checkbox" name="cod" checked=checked> 
-                              <button type="submit" class="d-block py-3 px-4 bg-primary text-white border-0 rounded font-weight-bold">Register Now</button>
+                              <button type="submit" class="d-block py-3 px-4 bg-primary text-white border-0 rounded font-weight-bold">Place Order</button>
                             </fieldset>
                         </form>
                     </div>
@@ -33,7 +33,7 @@
     },
     data () {
       return {
-
+          address:''
       }
     },
     methods: {

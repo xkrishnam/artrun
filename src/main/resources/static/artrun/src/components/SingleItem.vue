@@ -17,7 +17,7 @@
 					<!-- product slider -->
 					<div class="product-slider">
 							<img class="img-fluid w-100" 
-              :src="this.$g('base_url')+'/arimages/'+painting.id+'.jpg'" 
+              :src="this.$g('base_url')+'/'+painting.id+'.jpg'" 
               alt="product-img">
 						
 					</div>

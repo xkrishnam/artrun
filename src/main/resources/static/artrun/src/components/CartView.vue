@@ -23,7 +23,7 @@
 
 								<td class="product-thumb">
 									<img width="80px" height="auto" 
-                  :src="this.$g('base_url')+'/arimages/'+painting.id+'.jpg'" 
+                  :src="getContentImageLink(painting.id)" 
                   alt="image description">
                 </td>
 								<td class="product-details">
@@ -86,6 +86,9 @@ const axios = require('axios');
       }
     },
     methods: {
+		getContentImageLink(id) {
+      return this.$g("img_base_url") + id + ".jpg";
+    },
       removeFromCart : function(pid,event){
         event.preventDefault();
 				var cid=0;

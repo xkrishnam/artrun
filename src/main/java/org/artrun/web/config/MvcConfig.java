@@ -9,17 +9,17 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.resource.PathResourceResolver;
 
 @Configuration
-@EnableWebMvc
+//@EnableWebMvc
 public class MvcConfig implements WebMvcConfigurer {
 
     @Value("${painting.image.location}")
     private String imgLocation;
 
-    @Override
-    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/arimages/**").addResourceLocations(imgLocation).setCachePeriod(3600)
-                .resourceChain(true).addResolver(new PathResourceResolver());
-    }
+    // @Override
+    // public void addResourceHandlers(ResourceHandlerRegistry registry) {
+    //     registry.addResourceHandler("/arimages/**").addResourceLocations(imgLocation).setCachePeriod(3600)
+    //             .resourceChain(true).addResolver(new PathResourceResolver());
+    // }
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
