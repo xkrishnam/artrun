@@ -14,6 +14,7 @@ import OrderDetailView from "./components/OrderDetailView";
 import UploadPainting from "./components/UploadPainting";
 import globals from "./ar-config.json";
 import _get from "lodash/get";
+import 'bootstrap'
 
 Vue.prototype.$g = (key) => {
   let val = _get(globals, key, "");
