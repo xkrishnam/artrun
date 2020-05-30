@@ -5,6 +5,7 @@
       v-bind:quantity="this.$store.state.count"
       @updateCartQuantity="quant = $event"
     />
+    <SearchBar />
     <router-view></router-view>
     <ArtFooter arcompany="artrun" />
   </div>
@@ -13,6 +14,7 @@
 <script>
 import ArtHeader from "./components/ArtHeader";
 import ArtFooter from "./components/ArtFooter";
+import SearchBar from "./components/SearchBar";
 
 export default {
   name: "App",
@@ -23,14 +25,15 @@ export default {
   },
   components: {
     ArtHeader,
-    ArtFooter
+    ArtFooter,
+    SearchBar
   }
 };
 </script>
 
 <style>
-@import "./assets/plugins/bootstrap/css/bootstrap.min.css";
-@import "./assets/plugins/bootstrap/css/bootstrap-slider.css";
+/* @import "./assets/plugins/bootstrap/css/bootstrap.min.css";
+@import "./assets/plugins/bootstrap/css/bootstrap-slider.css"; */
 @import "./assets/plugins/font-awesome/css/font-awesome.min.css";
 @import "./assets/plugins/slick-carousel/slick/slick.css";
 @import "./assets/plugins/slick-carousel/slick/slick-theme.css";
