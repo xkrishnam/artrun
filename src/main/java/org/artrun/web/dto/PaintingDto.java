@@ -10,6 +10,7 @@ public class PaintingDto{
 	private String artist;
 	private String id; 
 	private Integer price;
+	private String category;
 	
 	public PaintingDto(Painting p) {
 		super();
@@ -17,5 +18,6 @@ public class PaintingDto{
 		this.artist=p.getArtist().getUname();
 		this.id=String.valueOf(p.getId());
 		this.price=p.getPrice();
+		this.category=p.getCategory().name();
 	}
 }

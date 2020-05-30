@@ -2,14 +2,6 @@
   <section class="popular-deals section bg-gray">
     <div class="container">
       <div class="row">
-        <div class="col-md-12">
-          <div class="section-title">
-            <h2>Paintings</h2>
-            <p></p>
-          </div>
-        </div>
-      </div>
-      <div class="row">
         <div class="col-sm-12 col-lg-4" v-bind:key="painting.id" v-for="painting in paintings">
           <!-- product card -->
           <div class="product-item bg-light">
@@ -39,7 +31,6 @@
 </template>
 
 <script>
-const axios = require("axios");
 export default {
   name: "ArtMainContent",
   props: {
@@ -47,13 +38,11 @@ export default {
   },
   data() {
     return {
-      paintings: null
+      paintings: this.$store.state.initCache.artifacts
     };
   },
   mounted() {
-    axios
-      .get(this.$g("base_url") + "/getallart")
-      .then(response => (this.paintings = response.data));
+    this.paintings = this.$store.state.initCache.artifacts;
   },
   methods: {
     getContentImageLink(id) {

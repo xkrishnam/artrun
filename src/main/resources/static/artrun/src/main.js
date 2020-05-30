@@ -14,7 +14,11 @@ import OrderDetailView from "./components/OrderDetailView";
 import UploadPainting from "./components/UploadPainting";
 import globals from "./ar-config.json";
 import _get from "lodash/get";
-import 'bootstrap'
+import "bootstrap";
+import "bootstrap/dist/css/bootstrap.min.css";
+import state from "./state";
+import searchPlugin from "vuex-search";
+import axios from "axios";
 
 Vue.prototype.$g = (key) => {
   let val = _get(globals, key, "");
@@ -45,13 +49,13 @@ const router = new VueRouter({
 });
 
 const store = new Vuex.Store({
-  state: {
-    count: 0,
-    loggedin: false,
-    guest: false,
-    userLogged: false,
-  },
+  state,
   mutations: {
+    initData(state) {
+      axios
+        .get(Vue.prototype.$g("base_url") + "/getallart")
+        .then((response) => (state.initCache.artifacts = response.data));
+    },
     updateCartCount(state, user) {
       if (user) {
         var quant = user.cart.paintings ? user.cart.paintings.length : 0;
@@ -74,6 +78,21 @@ const store = new Vuex.Store({
       }
     },
   },
+  plugins: [
+    searchPlugin({
+      resources: {
+        artifacts: {
+          // what fields to index
+          index: ["title", "category"],
+          // access the state to be watched by Vuex Search
+          getter: (state) => state.initCache.artifacts,
+          // how resource should be watched
+          watch: { delay: 500 },
+        },
+        // otherResource: { index, getter, watch, searchApi },
+      },
+    }),
+  ],
 });
 
 new Vue({
@@ -82,6 +101,7 @@ new Vue({
   store: store,
   mounted: function() {
     console.log(this.$session.get("user"));
+    this.$store.commit("initData");
     this.$store.commit("updateCartCount", this.$session.get("user"));
     this.$store.commit("setLoginStatus", this.$session.get("user"));
   },
