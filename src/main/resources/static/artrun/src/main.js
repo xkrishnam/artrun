@@ -19,6 +19,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import state from "./state";
 import searchPlugin from "vuex-search";
 import axios from "axios";
+import * as getters from "./getters";
 
 Vue.prototype.$g = (key) => {
   let val = _get(globals, key, "");
@@ -49,6 +50,7 @@ const router = new VueRouter({
 });
 
 const store = new Vuex.Store({
+  getters,
   state,
   mutations: {
     initData(state) {
@@ -83,7 +85,7 @@ const store = new Vuex.Store({
       resources: {
         artifacts: {
           // what fields to index
-          index: ["title", "category"],
+          index: ["title", "category", "artist"],
           // access the state to be watched by Vuex Search
           getter: (state) => state.initCache.artifacts,
           // how resource should be watched

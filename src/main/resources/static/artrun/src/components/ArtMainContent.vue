@@ -4,26 +4,14 @@
       <div class="row">
         <div class="col-sm-12 col-lg-4" v-bind:key="painting.id" v-for="painting in paintings">
           <!-- product card -->
-          <div class="product-item bg-light">
-            <div class="card">
-              <div class="thumb-content">
-                <!-- <div class="price">$200</div> -->
-                <router-link :to="'/art/'+painting.id">
-                  <img
-                    class="card-img-top"
-                    :src="getContentImageLink(painting.id)"
-                    alt="Card image cap"
-                  />
-                </router-link>
-              </div>
-              <div class="card-body">
-                <h4 class="card-title">
-                  <a href="single.html">{{painting.title+' by '+painting.artist}}</a>
-                  <p>{{painting.price}}INR</p>
-                </h4>
-              </div>
-            </div>
-          </div>
+          <artifact-details
+            :key="painting.id"
+            :id="painting.id"
+            :title="painting.title"
+            :category="painting.category"
+            :price="painting.price"
+            :artist="painting.artist"
+          ></artifact-details>
         </div>
       </div>
     </div>
@@ -31,8 +19,10 @@
 </template>
 
 <script>
+import ArtifactDetails from "./ArtifactDetails";
 export default {
   name: "ArtMainContent",
+  components: { ArtifactDetails },
   props: {
     msg: String
   },

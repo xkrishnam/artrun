@@ -10,17 +10,25 @@
 						<div class="container">
 							<div class="row justify-content-center">
 								<div class="col-lg-12 col-md-12 align-content-center">
-										<form>
+										<form v-on:submit="doSearch">
 											<div class="form-row">
 												<div class="form-group col-md-4">
-													<input type="text" class="form-control my-2 my-lg-1" id="inputtext4" placeholder="What are you looking for">
+													<input type="text" class="form-control my-2 my-lg-1" id="inputtext4" placeholder="What are you looking for" v-model="text">
 												</div>
 												<div class="form-group col-md-3">
 													<select class="w-100 form-control mt-lg-1 mt-md-2" style="display: none;">
 														<option>Category</option>
-														<option value="1">Painting</option>
-														<option value="2">Handi craft</option>
-													</select><div class="nice-select w-100 form-control mt-lg-1 mt-md-2" tabindex="0"><span class="current">Category</span><ul class="list"><li data-value="Category" class="option selected">Category</li><li data-value="1" class="option">Top rated</li><li data-value="2" class="option">Lowest Price</li><li data-value="4" class="option">Highest Price</li></ul></div>
+														<option value="paiting">Painting</option>
+														<option value="handicraft">Handi craft</option>
+													</select>
+													<div class="nice-select w-100 form-control mt-lg-1 mt-md-2" tabindex="0">
+														<span class="current">Category</span>
+														<ul class="list">
+															<li data-value="Category" class="option selected">Category</li>
+															<li data-value="painting" class="option">painting</li>
+															<li data-value="handicraft" class="option">hanicraft</li>
+														</ul>
+													</div>
 												</div>
 												<div class="form-group col-md-2 align-self-center">
 													<button type="submit" class="btn btn-primary">Search Now</button>
@@ -40,7 +48,13 @@
 </template>
 
 <script lang="js">
-
+import { mapGetters } from 'vuex';
+import {
+  mapActions as mapSearchActions,
+  mapGetters as mapSearchGetters,
+  getterTypes,
+  actionTypes,
+} from 'vuex-search';
   export default  {
     name: 'src-components-search-bar',
     props: [],
@@ -49,14 +63,34 @@
     },
     data () {
       return {
-
+			text:''
       }
     },
     methods: {
+		...mapSearchActions("artifacts", {
+		searchContacts: actionTypes.search,
+		}),
+		doSearch(event) {
+			event.preventDefault();
+			this.searchContacts(this.text);
+			console.log(this.resultIds);
+			this.searchContacts(this.text);
+			console.log(this.resultIds);
+		},
 
     },
     computed: {
-
+		...mapGetters({
+      itemsMap: 'currentContacts',
+      generating: 'isGenerating',
+    }),
+    items() {
+      return Object.values(this.itemsMap);
+    },
+		...mapSearchGetters('artifacts', {resultIds: getterTypes.result}),
+		results() {
+      return this.resultIds.map(id => this.itemsMap[id]);
+    },
     }
 }
 
