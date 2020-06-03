@@ -1,8 +1,9 @@
 <template>
   <section class="popular-deals section bg-gray">
+    <search-bar @keyup="searchChange" placeholder="Search" class="searchbar" />
     <div class="container">
       <div class="row">
-        <div class="col-sm-12 col-lg-4" v-bind:key="painting.id" v-for="painting in paintings">
+        <div class="col-sm-12 col-lg-4" v-bind:key="painting.id" v-for="painting in items">
           <!-- product card -->
           <artifact-details
             :key="painting.id"
@@ -20,23 +21,52 @@
 
 <script>
 import ArtifactDetails from "./ArtifactDetails";
+import SearchBar from "./SearchBar";
+import { mapGetters } from "vuex";
+import {
+  mapActions as mapSearchActions,
+  mapGetters as mapSearchGetters,
+  getterTypes,
+  actionTypes
+} from "vuex-search";
 export default {
   name: "ArtMainContent",
-  components: { ArtifactDetails },
+  components: { ArtifactDetails, SearchBar },
   props: {
     msg: String
   },
   data() {
     return {
-      paintings: this.$store.state.initCache.artifacts
+      paintings: this.items
     };
   },
-  mounted() {
-    this.paintings = this.$store.state.initCache.artifacts;
-  },
+  mounted() {},
   methods: {
     getContentImageLink(id) {
       return this.$g("img_base_url") + id + ".jpg";
+    },
+    ...mapSearchActions("artifacts", {
+      searchContacts: actionTypes.search
+    }),
+    searchChange(event) {
+      event.preventDefault();
+      this.searchContacts(this.text);
+      console.log(this.resultIds);
+      this.searchContacts(this.text);
+      console.log(this.resultIds);
+    }
+  },
+  computed: {
+    ...mapGetters({
+      itemsMap: "currentArtifacts",
+      generating: "isGenerating"
+    }),
+    items() {
+      return Object.values(this.itemsMap);
+    },
+    ...mapSearchGetters("artifacts", { resultIds: getterTypes.result }),
+    results() {
+      return this.resultIds.map(id => this.itemsMap[id]);
     }
   }
 };

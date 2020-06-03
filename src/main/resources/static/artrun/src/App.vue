@@ -5,7 +5,6 @@
       v-bind:quantity="this.$store.state.count"
       @updateCartQuantity="quant = $event"
     />
-    <SearchBar />
     <router-view></router-view>
     <ArtFooter arcompany="artrun" />
   </div>
@@ -14,7 +13,6 @@
 <script>
 import ArtHeader from "./components/ArtHeader";
 import ArtFooter from "./components/ArtFooter";
-import SearchBar from "./components/SearchBar";
 
 export default {
   name: "App",
@@ -25,8 +23,7 @@ export default {
   },
   components: {
     ArtHeader,
-    ArtFooter,
-    SearchBar
+    ArtFooter
   }
 };
 </script>
