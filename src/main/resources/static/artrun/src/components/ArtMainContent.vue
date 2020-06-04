@@ -1,6 +1,7 @@
 <template>
+
   <section class="popular-deals section bg-gray" v-if="!loading">
-    <search-bar @keyup="searchChange" placeholder="Search" class="searchbar" />
+   <search-bar @keyup="searchChange" placeholder="Search" class="searchbar" />
     <div class="container">
       <div class="row">
         <div class="col-sm-12 col-lg-4" v-bind:key="painting.id" v-for="painting in items">
