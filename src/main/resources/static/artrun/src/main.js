@@ -6,7 +6,6 @@ import loginPage from "./components/loginPage";
 import ArtSignup from "./components/artSignup";
 import SingleItem from "./components/SingleItem";
 import VueSession from "vue-session";
-import Vuex from "vuex";
 import CartView from "./components/CartView";
 import PlaceOrder from "./components/PlaceOrder";
 import OrderView from "./components/OrderView";
@@ -14,7 +13,9 @@ import OrderDetailView from "./components/OrderDetailView";
 import UploadPainting from "./components/UploadPainting";
 import globals from "./ar-config.json";
 import _get from "lodash/get";
-import 'bootstrap'
+import "bootstrap";
+import "bootstrap/dist/css/bootstrap.min.css";
+import store from "./store";
 
 Vue.prototype.$g = (key) => {
   let val = _get(globals, key, "");
@@ -22,7 +23,6 @@ Vue.prototype.$g = (key) => {
   return val || key;
 };
 
-Vue.use(Vuex);
 Vue.use(VueSession);
 Vue.use(VueRouter);
 Vue.config.productionTip = false;
@@ -44,42 +44,10 @@ const router = new VueRouter({
   ],
 });
 
-const store = new Vuex.Store({
-  state: {
-    count: 0,
-    loggedin: false,
-    guest: false,
-    userLogged: false,
-  },
-  mutations: {
-    updateCartCount(state, user) {
-      if (user) {
-        var quant = user.cart.paintings ? user.cart.paintings.length : 0;
-        state.count = quant;
-      }
-    },
-    setLoginStatus(state, user) {
-      if (user) {
-        state.loggedin = true;
-        if (user.userType == "guest") {
-          state.guest = true;
-          state.userLogged = false;
-        } else if (user.userType == "user") {
-          state.guest = false;
-          state.userLogged = true;
-        }
-      } else {
-        state.loggedin = false;
-        state.userLogged = false;
-      }
-    },
-  },
-});
-
 new Vue({
   router,
   render: (h) => h(App),
-  store: store,
+  store,
   mounted: function() {
     console.log(this.$session.get("user"));
     this.$store.commit("updateCartCount", this.$session.get("user"));

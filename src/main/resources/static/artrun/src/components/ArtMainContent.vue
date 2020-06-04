@@ -1,37 +1,18 @@
 <template>
-  <section class="popular-deals section bg-gray">
+  <section class="popular-deals section bg-gray" v-if="!loading">
+    <search-bar @keyup="searchChange" placeholder="Search" class="searchbar" />
     <div class="container">
       <div class="row">
-        <div class="col-md-12">
-          <div class="section-title">
-            <h2>Paintings</h2>
-            <p></p>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-sm-12 col-lg-4" v-bind:key="painting.id" v-for="painting in paintings">
+        <div class="col-sm-12 col-lg-4" v-bind:key="painting.id" v-for="painting in items">
           <!-- product card -->
-          <div class="product-item bg-light">
-            <div class="card">
-              <div class="thumb-content">
-                <!-- <div class="price">$200</div> -->
-                <router-link :to="'/art/'+painting.id">
-                  <img
-                    class="card-img-top"
-                    :src="getContentImageLink(painting.id)"
-                    alt="Card image cap"
-                  />
-                </router-link>
-              </div>
-              <div class="card-body">
-                <h4 class="card-title">
-                  <a href="single.html">{{painting.title+' by '+painting.artist}}</a>
-                  <p>{{painting.price}}INR</p>
-                </h4>
-              </div>
-            </div>
-          </div>
+          <artifact-details
+            :key="painting.id"
+            :id="painting.id"
+            :title="painting.title"
+            :category="painting.category"
+            :price="painting.price"
+            :artist="painting.artist"
+          ></artifact-details>
         </div>
       </div>
     </div>
@@ -39,27 +20,66 @@
 </template>
 
 <script>
-const axios = require("axios");
+import ArtifactDetails from "./ArtifactDetails";
+import SearchBar from "./SearchBar";
+import { mapGetters } from "vuex";
+import {
+  mapActions as mapSearchActions,
+  mapGetters as mapSearchGetters,
+  getterTypes,
+  actionTypes
+} from "vuex-search";
 export default {
   name: "ArtMainContent",
+  components: { ArtifactDetails, SearchBar },
   props: {
     msg: String
   },
   data() {
     return {
-      paintings: null
+      paintings: this.items,
+      loading: false
     };
   },
   mounted() {
-    axios
-      .get(this.$g("base_url") + "/getallart")
-      .then(response => (this.paintings = response.data));
+    this.loading = true;
+    this.$store.dispatch("initData").finally(() => (this.loading = false));
   },
   methods: {
     getContentImageLink(id) {
       return this.$g("img_base_url") + id + ".jpg";
+    },
+    ...mapSearchActions("artifacts", {
+      searchContacts: actionTypes.search
+    }),
+    searchChange(event) {
+      event.preventDefault();
+      this.searchContacts(this.text);
+      console.log(this.resultIds);
+      this.searchContacts(this.text);
+      console.log(this.resultIds);
+    }
+  },
+  computed: {
+    ...mapGetters({
+      itemsMap: "currentArtifacts",
+      generating: "isGenerating"
+    }),
+    items() {
+      return Object.values(this.itemsMap);
+    },
+    ...mapSearchGetters("artifacts", { resultIds: getterTypes.result }),
+    results() {
+      return this.resultIds.map(id => this.itemsMap[id]);
     }
   }
+  // beforeRouteEnter(to, from, next) {
+  //   if (store.state.initCache.artifacts.length === 0) {
+  //     store.dispatch("initData")
+  //     .then(next)
+  //     .finally(() => (this.loading=false));
+  //   }
+  // }
 };
 </script>
 

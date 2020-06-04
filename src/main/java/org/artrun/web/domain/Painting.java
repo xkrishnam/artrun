@@ -1,6 +1,8 @@
 package org.artrun.web.domain;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
@@ -18,4 +20,7 @@ public class Painting extends AbstractEntity {
     @JsonIgnore
     private User artist;
     private Integer price;
+
+    @Enumerated(value = EnumType.STRING)
+    private ArtifactCategory category;
 }
