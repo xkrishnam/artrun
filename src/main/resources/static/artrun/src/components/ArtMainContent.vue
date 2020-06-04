@@ -1,10 +1,9 @@
 <template>
-
   <section class="popular-deals section bg-gray" v-if="!loading">
-   <search-bar @keyup="searchChange" placeholder="Search" class="searchbar" />
+    <search-bar @keyup="searchChange" placeholder="Search" class="searchbar" />
     <div class="container">
       <div class="row">
-        <div class="col-sm-12 col-lg-4" v-bind:key="painting.id" v-for="painting in items">
+        <div class="col-sm-12 col-lg-4" v-bind:key="painting.id" v-for="painting in paintings">
           <!-- product card -->
           <artifact-details
             :key="painting.id"
@@ -38,8 +37,9 @@ export default {
   },
   data() {
     return {
-      paintings: this.items,
-      loading: false
+      paintings: "",
+      loading: true,
+      searchText: ""
     };
   },
   mounted() {
@@ -55,9 +55,8 @@ export default {
     }),
     searchChange(event) {
       event.preventDefault();
-      this.searchContacts(this.text);
-      console.log(this.resultIds);
-      this.searchContacts(this.text);
+      this.searchText = event.target.value;
+      this.searchContacts(this.searchText);
       console.log(this.resultIds);
     }
   },
@@ -70,8 +69,10 @@ export default {
       return Object.values(this.itemsMap);
     },
     ...mapSearchGetters("artifacts", { resultIds: getterTypes.result }),
-    results() {
-      return this.resultIds.map(id => this.itemsMap[id]);
+    arts: {
+      set: function() {
+        this.paintings = this.resultIds.map(id => this.itemsMap[id]);
+      }
     }
   }
   // beforeRouteEnter(to, from, next) {
@@ -85,5 +86,4 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-</style>
+<style scoped></style>

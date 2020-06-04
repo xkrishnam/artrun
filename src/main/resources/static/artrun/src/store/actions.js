@@ -4,6 +4,11 @@ export default {
   initData({ state }) {
     axios
       .get(globals.base_url + "/getallart")
-      .then((response) => (state.initCache.artifacts = response.data));
+      .then(
+        (response) =>
+          (state.initCache.artifacts = JSON.parse(
+            JSON.stringify(response.data)
+          ))
+      );
   },
 };

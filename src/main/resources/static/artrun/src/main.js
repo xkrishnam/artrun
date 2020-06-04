@@ -50,7 +50,6 @@ new Vue({
   store,
   mounted: function() {
     console.log(this.$session.get("user"));
-    this.$store.commit("initData");
     this.$store.commit("updateCartCount", this.$session.get("user"));
     this.$store.commit("setLoginStatus", this.$session.get("user"));
   },
