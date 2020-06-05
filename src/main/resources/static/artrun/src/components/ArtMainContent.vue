@@ -3,7 +3,7 @@
     <search-bar @keyup="searchChange" placeholder="Search" class="searchbar" />
     <div class="container">
       <div class="row">
-        <div class="col-sm-12 col-lg-4" v-bind:key="painting.id" v-for="painting in paintings">
+        <div class="col-sm-12 col-lg-4" v-bind:key="painting.id" v-for="painting in results">
           <!-- product card -->
           <artifact-details
             :key="painting.id"
@@ -37,7 +37,6 @@ export default {
   },
   data() {
     return {
-      paintings: "",
       loading: true,
       searchText: ""
     };
@@ -69,19 +68,19 @@ export default {
       return Object.values(this.itemsMap);
     },
     ...mapSearchGetters("artifacts", { resultIds: getterTypes.result }),
-    arts: {
-      set: function() {
-        this.paintings = this.resultIds.map(id => this.itemsMap[id]);
+    results() {
+      if (
+        this.searchText.length > 0 &&
+        this.resultIds.map(id => this.itemsMap[id])[0]
+      ) {
+        return this.resultIds.map(id =>
+          this.itemsMap.find(itm => itm.id === id)
+        );
+      } else {
+        return Object.values(this.itemsMap);
       }
     }
   }
-  // beforeRouteEnter(to, from, next) {
-  //   if (store.state.initCache.artifacts.length === 0) {
-  //     store.dispatch("initData")
-  //     .then(next)
-  //     .finally(() => (this.loading=false));
-  //   }
-  // }
 };
 </script>
 
