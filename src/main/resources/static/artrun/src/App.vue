@@ -29,8 +29,8 @@ export default {
 </script>
 
 <style>
-@import "./assets/plugins/bootstrap/css/bootstrap.min.css";
-@import "./assets/plugins/bootstrap/css/bootstrap-slider.css";
+/* @import "./assets/plugins/bootstrap/css/bootstrap.min.css";
+@import "./assets/plugins/bootstrap/css/bootstrap-slider.css"; */
 @import "./assets/plugins/font-awesome/css/font-awesome.min.css";
 @import "./assets/plugins/slick-carousel/slick/slick.css";
 @import "./assets/plugins/slick-carousel/slick/slick-theme.css";
